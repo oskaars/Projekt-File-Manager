@@ -1,0 +1,67 @@
+<h1>pliki </h1>
+<div class="container">
+    {{#each files}}
+    <div class="card">
+        {{this}}
+        <form method="post" action="/removeFile">
+            <input type="hidden" name='fileToRemove' value={{this}}>
+            <input type="submit" value="x">
+        </form>
+    </div>
+
+    {{/each}}
+</div>
+
+
+<h1>foldery </h1>
+<div class="container">
+    {{#each dirs}}
+    <div class="card">
+        {{this}}
+        <form method="post" action="/removeFolder">
+            <input type="hidden" name='dirToRemove' value={{this}}>
+            <input type="submit" value="x">
+        </form>
+    </div>
+
+    {{/each}}
+
+</div>
+
+
+<button onclick="dirDialogModalHandler()">new folder</button>
+<button onclick="fileDialogModalHandler()">new file</button>
+
+
+<dialog id="dirDialog">
+    <form action="" method="get">
+        Wpisz nazwe folderu: <input type="text" name="dirName">
+        <input type="submit" value="Create" formaction="/addDir" method="get">
+        <button onclick="cancelDirModal()">Cancel</button>
+
+    </form>
+</dialog>
+
+<dialog id="fileDialog">
+    <form action="" method="get">
+        Wpisz nazwe pliku: <input type="text" name="fileName">
+        <input type="submit" value="Create" formaction="/addFile" method="get">
+        <button onclick="cancelFileModal()">Cancel</button>
+    </form>
+</dialog>
+
+
+<script>
+    function cancelDirModal() {
+        document.getElementById("dirDialog").hideModal();
+    }
+    function cancelFileModal() {
+        document.getElementById("fileDialog").hideModal();
+    }
+    function dirDialogModalHandler() {
+        document.getElementById("dirDialog").showModal();
+    }
+    function fileDialogModalHandler() {
+        document.getElementById("fileDialog").showModal();
+    }
+</script>
