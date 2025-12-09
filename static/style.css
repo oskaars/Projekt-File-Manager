@@ -1,12 +1,206 @@
-.container{
-    display: flex;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-.card{
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0e0e0;
     display: flex;
-    width: 100px;
-    height: 100px;
-    border: 1px solid black;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sidebar-btn {
+    background-color: #5c5cb8;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.sidebar-btn:hover {
+    background-color: #4a4a9e;
+}
+
+.upload-section {
+    background-color: #d0d0d0;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.upload-section .sidebar-btn {
+    background-color: #5c5cb8;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-input-label {
+    display: block;
     text-align: center;
-    align-items: center;
-    justify-content: center;
+    cursor: pointer;
+}
+
+.upload-btn {
+    background-color: #c0c0c0;
+    color: #333;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.upload-btn:hover {
+    background-color: #b0b0b0;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.section {
+    background-color: #d5d5d5;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.section-header {
+    background-color: #8888c0;
+    color: #333;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    width: 180px;
+    min-height: 100px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.type-badge {
+    background-color: #3a3a7d;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.type-badge.txt {
+    background-color: #3a3a7d;
+}
+
+.type-badge.dir {
+    background-color: #5c5cb8;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #5c5cb8;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0;
+}
+
+.delete-btn:hover {
+    color: #3a3a7d;
+}
+
+.card-name {
+    color: #5c5cb8;
+    font-size: 13px;
+    word-break: break-all;
+}
+
+/* Dialog styles */
+dialog {
+    border: none;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+dialog::backdrop {
+    background-color: rgba(0,0,0,0.5);
+}
+
+dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+dialog input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+dialog input[type="submit"],
+dialog button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+dialog input[type="submit"] {
+    background-color: #5c5cb8;
+    color: white;
+    border: none;
+}
+
+dialog button {
+    background-color: #ccc;
+    border: none;
 }

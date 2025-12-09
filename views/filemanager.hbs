@@ -1,44 +1,59 @@
-<h1>pliki </h1>
-<div class="container">
-    {{#each files}}
-    <div class="card">
-        {{this}}
-        <form method="post" action="/removeFile">
-            <input type="hidden" name='fileToRemove' value={{this}}>
-            <input type="submit" value="x">
-        </form>
-    </div>
-
-    {{/each}}
+<div class="sidebar">
+    <button class="sidebar-btn" onclick="dirDialogModalHandler()">new folder</button>
+    <button class="sidebar-btn" onclick="fileDialogModalHandler()">new file</button>
+    
+    <form class="upload-section">
+        <label class="file-input-label sidebar-btn">
+            Select files to upload
+            <input type="file" class="file-input" multiple>
+        </label>
+        <input type="submit" class="upload-btn" value="upload">
+    </form>
 </div>
 
-
-<h1>foldery </h1>
-<div class="container">
-    {{#each dirs}}
-    <div class="card">
-        {{this}}
-        <form method="post" action="/removeFolder">
-            <input type="hidden" name='dirToRemove' value={{this}}>
-            <input type="submit" value="x">
-        </form>
+<div class="main-content">
+    <div class="section">
+        <div class="section-header">folders</div>
+        <div class="container">
+            {{#each dirs}}
+            <div class="card">
+                <div class="card-header">
+                    <span class="type-badge dir">DIR</span>
+                    <form method="post" action="/removeFolder">
+                        <input type="hidden" name='dirToRemove' value="{{this}}">
+                        <button type="submit" class="delete-btn">x</button>
+                    </form>
+                </div>
+                <div class="card-name">{{this}}</div>
+            </div>
+            {{/each}}
+        </div>
     </div>
 
-    {{/each}}
-
+    <div class="section">
+        <div class="section-header">files</div>
+        <div class="container">
+            {{#each files}}
+            <div class="card">
+                <div class="card-header">
+                    <span class="type-badge txt">TXT</span>
+                    <form method="post" action="/removeFile">
+                        <input type="hidden" name='fileToRemove' value="{{this}}">
+                        <button type="submit" class="delete-btn">x</button>
+                    </form>
+                </div>
+                <div class="card-name">{{this}}</div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
 </div>
-
-
-<button onclick="dirDialogModalHandler()">new folder</button>
-<button onclick="fileDialogModalHandler()">new file</button>
-
 
 <dialog id="dirDialog">
     <form action="" method="get">
         Wpisz nazwe folderu: <input type="text" name="dirName">
         <input type="submit" value="Create" formaction="/addDir" method="get">
-        <button onclick="cancelDirModal()">Cancel</button>
-
+        <button type="button" onclick="cancelDirModal()">Cancel</button>
     </form>
 </dialog>
 
@@ -46,17 +61,16 @@
     <form action="" method="get">
         Wpisz nazwe pliku: <input type="text" name="fileName">
         <input type="submit" value="Create" formaction="/addFile" method="get">
-        <button onclick="cancelFileModal()">Cancel</button>
+        <button type="button" onclick="cancelFileModal()">Cancel</button>
     </form>
 </dialog>
 
-
 <script>
     function cancelDirModal() {
-        document.getElementById("dirDialog").hideModal();
+        document.getElementById("dirDialog").close();
     }
     function cancelFileModal() {
-        document.getElementById("fileDialog").hideModal();
+        document.getElementById("fileDialog").close();
     }
     function dirDialogModalHandler() {
         document.getElementById("dirDialog").showModal();
