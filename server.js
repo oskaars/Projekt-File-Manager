@@ -155,10 +155,20 @@ app.post("/removeFolder", function (req, res) {
     }
 
 })
+
+
 app.post("/removeFile", function (req, res) {
-    console.log('do usuniecia', req.body.fileToRemove)
-    res.redirect('/')
+        if (fs.existsSync(path.join(baseDir, req.body.fileToRemove))) {
+        fs.unlink(path.join(baseDir, req.body.fileToRemove), (err) => {
+            if (err) throw err
+            console.log("usunieto" , req.body.fileToRemove);
+            res.redirect('/')
+        })
+    }
 })
 
-//TODO
+//TODO: upload multiple files, files count, 
+
+
+
 
