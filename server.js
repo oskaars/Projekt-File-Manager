@@ -66,22 +66,22 @@ app.get("/addDir", function (req, res) {
     const targetPath = path.join(baseDir, dirName);
 
     if (fs.existsSync(targetPath)) {
-        console.log("Folder istnieje, tworzę duplikat...");
+        console.log("folder istnieje");
 
         let finalDirName = dirName; // Tę zmienną będziemy modyfikować
         let counter = 0;
 
         while (fs.existsSync(path.join(baseDir, finalDirName))) {
-            counter++; 
+            counter++;
             finalDirName = dirName + '(' + counter.toString() + ')';
         }
-        console.log("Znaleziono wolną nazwę:", finalDirName);
+        console.log("pierwsza wolna", finalDirName);
 
 
         fs.mkdir(path.join(baseDir, finalDirName), (err) => {
             if (err) {
                 console.log(err);
-                res.send("Wystąpił błąd przy tworzeniu folderu.");
+                res.send("blad w tworzeniu folderu");
             } else {
                 // Sukces!
                 res.redirect("/");
@@ -89,14 +89,14 @@ app.get("/addDir", function (req, res) {
         });
 
     } else {
-        console.log("Folder nie istnieje, tworzę nowy...");
+        console.log("nowy folder: ");
 
         fs.mkdir(targetPath, (err) => {
             if (err) {
                 console.log(err);
-                res.send("Błąd tworzenia folderu" + err);
+                res.send("blad w tworzeniu folderu" + err);
             } else {
-                console.log("Utworzono folder:", dirName);
+                console.log("dodano folder", dirName);
                 res.redirect("/");
             }
         });
@@ -108,48 +108,54 @@ app.get("/addFile", function (req, res) {
     const targetPath = path.join(baseDir, fileName);
 
     if (fs.existsSync(targetPath)) {
-        console.log("Plik istnieje, tworzę duplikat...");
+        console.log("plik istnieje");
 
-        let finalFileName = fileName; 
+        let finalFileName = fileName;
         let counter = 0;
 
         while (fs.existsSync(path.join(baseDir, finalFileName))) {
-            counter++; 
+            counter++;
             finalFileName = fileName + '(' + counter.toString() + ')';
         }
-        console.log("Znaleziono wolną nazwę:", finalFileName);
+        console.log("pierwsza wolna: ", finalFileName);
 
 
         fs.writeFile(path.join(baseDir, finalFileName), 'tekscik do pliku', (err) => {
             if (err) {
                 console.log(err);
-                res.send("Wystąpił błąd przy tworzeniu pliku.");
+                res.send("blad przy tworzeniu pliku");
             } else {
                 res.redirect("/");
             }
         });
 
     } else {
-        console.log("Plik nie istnieje, tworzę nowy...");
+        console.log("plik istnieje");
 
         fs.writeFile(targetPath, 'teskcik ', (err) => {
             if (err) {
                 console.log(err);
                 res.send("Błąd tworzenia pliku" + err);
             } else {
-                console.log("Utworzono plik:", fileName);
+                console.log("Utworzono plik ", fileName);
                 res.redirect("/");
             }
         });
     }
 })
 
-//TODO
-app.post("/removeFolder", function (req, res) { 
+app.post("/removeFolder", function (req, res) {
     console.log('do usuniecia', req.body.dirToRemove)
-    res.redirect('/')
+    if (fs.existsSync(path.join(baseDir, req.body.dirToRemove))) {
+        fs.rmdir(path.join(baseDir, req.body.dirToRemove), (err) => {
+            if (err) throw err
+            console.log("usunieto" , req.body.dirToRemove);
+            res.redirect('/')
+        })
+    }
+
 })
-app.post("/removeFile", function (req, res) { 
+app.post("/removeFile", function (req, res) {
     console.log('do usuniecia', req.body.fileToRemove)
     res.redirect('/')
 })
