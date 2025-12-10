@@ -32,7 +32,7 @@ git clone [https://github.com/oskaars/Projekt-File-Manager.git](https://github.c
 cd Projekt-File-Manager
 ````
 
-### 2. Instalacja zależności
+### 2\. Instalacja zależności
 
 Upewnij się, że masz zainstalowany Node.js, a następnie wykonaj polecenie:
 
@@ -48,7 +48,6 @@ Możesz uruchomić główny serwer za pomocą:
 node server.js
 ```
 
-*(lub `node server01.js` w zależności od wersji, którą chcesz uruchomić)*
 
 ### 4\. Dostęp do aplikacji
 
