@@ -28,7 +28,7 @@ Aby uruchomić projekt lokalnie, postępuj zgodnie z poniższymi instrukcjami:
 ### 1. Klonowanie repozytorium
 
 ```bash
-git clone [https://github.com/oskaars/Projekt-File-Manager.git](https://github.com/oskaars/Projekt-File-Manager.git)
+git clone https://github.com/oskaars/Projekt-File-Manager.git
 cd Projekt-File-Manager
 ````
 
