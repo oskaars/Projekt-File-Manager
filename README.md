@@ -18,8 +18,8 @@ Projekt został zrealizowany przy użyciu następujących technologii:
 
 * **Backend:** [Node.js](https://nodejs.org/)
 * **Silnik szablonów:** [Handlebars (HBS)](https://handlebarsjs.com/)
-* **Stylowanie:** CSS (pliki statyczne)
-* **Serwer:** Express.js (domyślny framework dla tego typu projektów)
+* **Stylowanie:** CSS 
+* **Serwer:** Express.js
 
 ## Instalacja i Uruchomienie
 
@@ -47,12 +47,6 @@ Możesz uruchomić główny serwer za pomocą:
 ```bash
 node server.js
 ```
-
-
-### 4\. Dostęp do aplikacji
-
-Otwórz przeglądarkę i wejdź na adres (domyślnie zazwyczaj):
-`http://localhost:3000`
 
 ## Struktura Projektu
 
