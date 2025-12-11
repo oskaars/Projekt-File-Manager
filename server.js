@@ -168,7 +168,10 @@ app.post("/removeFile", function (req, res) {
 })
 
 //TODO: upload multiple files, files count, 
-
+app.get("/uploadFiles", function(req, res){
+    console.log(req.query.files)
+    res.redirect('/')
+})
 
 
 
