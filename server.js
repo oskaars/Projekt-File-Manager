@@ -4,6 +4,7 @@ const PORT = 3000;
 const path = require("path")
 const fs = require("fs")
 const { create } = require('express-handlebars');
+const formidable = require('formidable');
 
 app.use(express.static('static'))
 app.use(express.urlencoded({
@@ -149,7 +150,7 @@ app.post("/removeFolder", function (req, res) {
     if (fs.existsSync(path.join(baseDir, req.body.dirToRemove))) {
         fs.rmdir(path.join(baseDir, req.body.dirToRemove), (err) => {
             if (err) throw err
-            console.log("usunieto" , req.body.dirToRemove);
+            console.log("usunieto", req.body.dirToRemove);
             res.redirect('/')
         })
     }
@@ -158,20 +159,58 @@ app.post("/removeFolder", function (req, res) {
 
 
 app.post("/removeFile", function (req, res) {
-        if (fs.existsSync(path.join(baseDir, req.body.fileToRemove))) {
+    if (fs.existsSync(path.join(baseDir, req.body.fileToRemove))) {
         fs.unlink(path.join(baseDir, req.body.fileToRemove), (err) => {
             if (err) throw err
-            console.log("usunieto" , req.body.fileToRemove);
+            console.log("usunieto", req.body.fileToRemove);
             res.redirect('/')
         })
     }
 })
 
 //TODO: upload multiple files, files count, 
-app.get("/uploadFiles", function(req, res){
-    console.log(req.query.files)
-    res.redirect('/')
-})
+app.post('/uploadFiles', function (req, res) {
+
+    let form = formidable({});
+
+    form.uploadDir = baseDir // folder do zapisu 
+    form.keepExtensions = true // zapis z rozszerzeniem pliku
+    form.multiples = true
+    form.parse(req, function (err, fields, files) {
+
+        console.log("----- przesłane pola z formularza ------");
+
+        console.log(fields);
+
+        console.log("----- przesłane formularzem pliki ------");
+
+        console.log(files);
+        files.files.forEach(element => {
+            const NAME = element.name
+            console.log(NAME)
+            if (!fs.existsSync(path.join(baseDir, NAME))) {
+                console.log(element.path)
+                fs.rename(element.path, path.join(baseDir, NAME), (err) => {
+                    if (err) console.log(err)
+                    else {
+                        
+                    }
+                })
+                console.log('plik jeswt')
+            }
+            else {
+            }
+            
+        });
+        res.redirect('/')
+        
+    });
+
+
+
+
+});
+
 
 
 

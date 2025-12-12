@@ -2,7 +2,7 @@
     <button class="sidebar-btn" onclick="dirDialogModalHandler()">new folder</button>
     <button class="sidebar-btn" onclick="fileDialogModalHandler()">new file</button>
     
-    <form class="upload-section" method="get" action="/uploadFiles">
+    <form class="upload-section" enctype="multipart/form-data" method="post" action="/uploadFiles">
         <label class="file-input-label sidebar-btn">
             Select files to upload
             <input type="file" name="files" class="file-input" multiple>
