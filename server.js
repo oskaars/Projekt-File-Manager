@@ -193,23 +193,26 @@ app.post('/uploadFiles', function (req, res) {
                 fs.rename(element.path, path.join(baseDir, NAME), (err) => {
                     if (err) console.log(err)
                     else {
-                        
+
                     }
                 })
                 console.log('plik jeswt')
             }
             else {
             }
-            
+
         });
         res.redirect('/')
-        
     });
-
-
-
-
 });
+
+
+app.post('/downloadFile', function (req, res) {
+    res.download(path.join(baseDir,req.body.fileToDownload), (err) => {
+        if (err) throw err
+    })
+})
+
 
 
 

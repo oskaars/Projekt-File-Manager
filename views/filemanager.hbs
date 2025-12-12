@@ -41,6 +41,10 @@
                         <input type="hidden" name='fileToRemove' value="{{this}}">
                         <button type="submit" class="delete-btn">x</button>
                     </form>
+                    <form method="post" action="/downloadFile">
+                        <input type="hidden" name='fileToDownload' value="{{this}}">
+                        <button type="submit" class="delete-btn">V</button>
+                    </form>
                 </div>
                 <div class="card-name">{{this}}</div>
             </div>
