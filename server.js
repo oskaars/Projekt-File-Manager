@@ -22,10 +22,7 @@ app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views')); // ustalamy katalog views
 
 
-app.listen(PORT, function () {
-    console.log("start serwera na porcie " + PORT);
 
-})
 
 let sentDirs = []
 let sentFiles = []
@@ -208,7 +205,7 @@ app.post('/uploadFiles', function (req, res) {
 
 
 app.post('/downloadFile', function (req, res) {
-    res.download(path.join(baseDir,req.body.fileToDownload), (err) => {
+    res.download(path.join(baseDir, req.body.fileToDownload), (err) => {
         if (err) throw err
     })
 })
@@ -217,3 +214,18 @@ app.post('/downloadFile', function (req, res) {
 
 
 
+
+
+
+
+
+
+
+app.get("*xxx", function(req, res) {
+    
+   res.render('notfound.hbs', { error: "nie znaleziono adresu" })
+})
+app.listen(PORT, function () {
+    console.log("start serwera na porcie " + PORT);
+
+})
