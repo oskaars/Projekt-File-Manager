@@ -23,6 +23,10 @@
                         <input type="hidden" name='dirToRemove' value="{{this}}">
                         <button type="submit" class="delete-btn">x</button>
                     </form>
+                    <form method="post" action="/downloadDir">
+                        <input type="hidden" name='dirToDownload' value="{{this}}">
+                        <button type="submit" class="delete-btn">v</button>
+                    </form>
                 </div>
                 <div class="card-name">{{this}}</div>
             </div>
