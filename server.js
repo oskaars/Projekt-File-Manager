@@ -169,7 +169,7 @@ app.post("/removeFile", function (req, res) {
     }
 })
 
-//TODO: upload multiple files, files count, 
+//TODO: files count, 
 app.post('/uploadFiles', function (req, res) {
 
     let form = formidable({});
@@ -216,47 +216,50 @@ app.post('/downloadFile', function (req, res) {
 
 
 app.post('/downloadDir', function (req, res) {
-  
-// create a file to stream archive data to.
-const output = res
-const archive = archiver('zip', {
-  zlib: { level: 9 } // Sets the compression level.
-});
+    res.attachment(req.body.dirToDownload + '.zip');
+    res.type('zip')
+    // create a file to stream archive data to.
+    const output = res
+    const archive = archiver('zip', {
+        zlib: { level: 9 } // Sets the compression level.
+    });
 
-// listen for all archive data to be written
-// 'close' event is fired only when a file descriptor is involved
-output.on('close', function() {
-  console.log(archive.pointer() + ' total bytes');
-  console.log('archiver has been finalized and the output file descriptor has closed.');
-});
+    archive.pipe(output);
 
-// This event is fired when the data source is drained no matter what was the data source.
-// It is not part of this library but rather from the NodeJS Stream API.
-// @see: https://nodejs.org/api/stream.html#stream_event_end
-output.on('end', function() {
-  console.log('Data has been drained');
-});
+    // listen for all archive data to be written
+    // 'close' event is fired only when a file descriptor is involved
+    output.on('close', function () {
+        console.log(archive.pointer() + ' total bytes');
+        console.log('archiver has been finalized and the output file descriptor has closed.');
+    });
 
-// good practice to catch warnings (ie stat failures and other non-blocking errors)
-archive.on('warning', function(err) {
-  if (err.code === 'ENOENT') {
-    // log warning
-  } else {
-    // throw error
-    throw err;
-  }
-});
+    // This event is fired when the data source is drained no matter what was the data source.
+    // It is not part of this library but rather from the NodeJS Stream API.
+    // @see: https://nodejs.org/api/stream.html#stream_event_end
+    output.on('end', function () {
+        console.log('Data has been drained');
+    });
 
-// good practice to catch this error explicitly
-archive.on('error', function(err) {
-  throw err;
-});
+    // good practice to catch warnings (ie stat failures and other non-blocking errors)
+    archive.on('warning', function (err) {
+        if (err.code === 'ENOENT') {
+            // log warning
+        } else {
+            // throw error
+            throw err;
+        }
+    });
 
-// pipe archive data to the file
-archive.pipe(output);
-archive.finalize();
+    // good practice to catch this error explicitly
+    archive.on('error', function (err) {
+        throw err;
+    });
 
+    // pipe archive data to the file
 
+    archive.directory(path.join(baseDir, req.body.dirToDownload), false);
+
+    archive.finalize();
 })
 
 
@@ -270,9 +273,9 @@ archive.finalize();
 
 
 
-app.get("*xxx", function(req, res) {
-    
-   res.render('notfound.hbs', { error: "nie znaleziono adresu" })
+app.get("*xxx", function (req, res) {
+
+    res.render('notfound.hbs', { error: "nie znaleziono adresu" })
 })
 app.listen(PORT, function () {
     console.log("start serwera na porcie " + PORT);
