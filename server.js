@@ -169,10 +169,12 @@ app.post("/removeFile", function (req, res) {
     }
 })
 
-//TODO: files count, 
+//TOFIX: bcs of wrong time management when there is multiple files (>3)
+// the files are saved before their names are changed and therefore they are not properly renamed  
 app.post('/uploadFiles', function (req, res) {
 
     let form = formidable({});
+
 
     form.uploadDir = baseDir // folder do zapisu 
     form.keepExtensions = true // zapis z rozszerzeniem pliku
