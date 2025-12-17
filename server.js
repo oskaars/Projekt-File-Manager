@@ -188,23 +188,44 @@ app.post('/uploadFiles', function (req, res) {
         console.log("----- przesłane formularzem pliki ------");
 
         console.log(files);
-        files.files.forEach(element => {
-            const NAME = element.name
-            console.log(NAME)
-            if (!fs.existsSync(path.join(baseDir, NAME))) {
-                console.log(element.path)
-                fs.rename(element.path, path.join(baseDir, NAME), (err) => {
-                    if (err) console.log(err)
-                    else {
+        if (Array.isArray(files.files)) {
+            files.files.forEach(element => {
+                const NAME = element.name
+                console.log(NAME)
+                if (!fs.existsSync(path.join(baseDir, NAME))) {
+                    console.log(element.path)
+                    fs.rename(element.path, path.join(baseDir, NAME), (err) => {
+                        if (err) console.log(err)
+                        else {
 
-                    }
-                })
-                console.log('plik jeswt')
-            }
-            else {
-            }
+                        }
+                    })
+                    console.log('plik jeswt')
+                }
+                else {
+                }
 
-        });
+            });
+        } else {
+            console.log('przechodzi 1')
+                const NAME = files.files.name
+                console.log('przechodzi 2', files.name)
+                console.log(NAME)
+                if (!fs.existsSync(path.join(baseDir, NAME))) {
+                    console.log(files.files.path)
+                    fs.rename(files.files.path, path.join(baseDir, NAME), (err) => {
+                        if (err) console.log(err)
+                        else {
+
+                        }
+                    })
+                    console.log('plik jeswt')
+                }
+                else {
+                }
+            
+        }
+
         res.redirect('/')
     });
 });
